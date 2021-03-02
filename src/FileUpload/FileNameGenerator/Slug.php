@@ -83,6 +83,7 @@ class Slug implements FileNameGenerator
      * */
     public function getSluggedFileName($name)
     {
+        // \Log::info(print_r("name: ".$name, true));
         $fileNameExploded = explode(".", $name);
         $extension        = array_pop($fileNameExploded);
         $fileNameExploded = implode(".", $fileNameExploded);
@@ -98,15 +99,21 @@ class Slug implements FileNameGenerator
     private function slugify($text)
     {
         // replace non letter or digits by -
-        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+//        \Log::info(print_r("slug0: ".$text, true));
+//        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+          $text = stripslashes($text);
+//        \Log::info(print_r("slug1: ".$text, true));
         // trim
-        $text = trim($text, '-');
+//        $text = trim($text, '-');
+//        \Log::info(print_r("slug2: ".$text, true));
         // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+//        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
         // lowercase
-        $text = strtolower($text);
+//        $text = strtolower($text);
+//        \Log::info(print_r("slug3: ".$text, true));
         // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
+//        $text = preg_replace('~[^-\w]+~', '', $text);
+//        \Log::info(print_r("slug4: ".$text, true));
         
         if (empty($text)) {
             return 'n-a';
